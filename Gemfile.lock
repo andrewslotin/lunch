@@ -51,6 +51,12 @@ GEM
       faraday (~> 0.8)
       faraday_middleware (>= 0.8)
       hashie (~> 1.0)
+    haml (3.1.7)
+    haml-rails (0.3.5)
+      actionpack (>= 3.1, < 4.1)
+      activesupport (>= 3.1, < 4.1)
+      haml (~> 3.1)
+      railties (>= 3.1, < 4.1)
     has_scope (0.5.1)
     hashie (1.2.0)
     hike (1.2.1)
@@ -154,6 +160,7 @@ DEPENDENCIES
   bootstrap-sass
   coffee-rails (~> 3.2.1)
   foursquare2
+  haml-rails
   hirb
   inherited_resources
   jquery-rails

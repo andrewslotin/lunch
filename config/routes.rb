@@ -1,3 +1,3 @@
 Lunch::Application.routes.draw do
-  root to: "application#index"
+  root to: "places#index"
 end

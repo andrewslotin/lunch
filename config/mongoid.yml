@@ -15,7 +15,7 @@ development:
       options:
 
 test:
-  sessions:                                          §
+  sessions:
     default:
       database: lunch_test
       hosts:

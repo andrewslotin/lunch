@@ -1,0 +1,11 @@
+.page-header
+  %h1 Places around
+
+- @venues["groups"].each do |group|
+  %ul
+    - group["items"].each do |item|
+      - venue = item["venue"]
+      %li
+        = link_to venue["name"], venue["canonicalUrl"]
+        - if venue["rating"].present?
+          = "(#{venue["rating"]}/10)"

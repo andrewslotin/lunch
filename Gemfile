@@ -9,6 +9,7 @@ gem 'inherited_resources'
 gem 'mongoid'
 gem 'omniauth-github'
 gem 'foursquare2'
+gem 'octokit'
 gem 'bootstrap-sass'
 gem 'haml-rails'
 

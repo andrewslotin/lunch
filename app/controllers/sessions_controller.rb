@@ -1,6 +1,10 @@
 class SessionsController < ApplicationController
   skip_before_filter :authenticate_user!, except: [:destroy]
 
+  def new
+
+  end
+
   def create
     user = User.find_or_create_with_omniauth(request.env['omniauth.auth'])
 
@@ -15,6 +19,6 @@ class SessionsController < ApplicationController
 
   def destroy
     reset_session
-    redirect_to root_url, notice: "Bye!"
+    redirect_to signin_url, notice: "Bye!"
   end
 end

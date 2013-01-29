@@ -12,6 +12,7 @@ gem 'foursquare2'
 gem 'octokit'
 gem 'bootstrap-sass'
 gem 'haml-rails'
+gem 'turbolinks'
 
 # Gems used only for assets and not required
 # in production environments by default.

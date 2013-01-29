@@ -18,7 +18,7 @@ class User
       u.login      = auth['info']['nickname']
       u.email      = auth['info']['email']
       u.name       = auth['info']['name']
-      u.avatar_url = auth['info']['avatar']
+      u.avatar_url = auth['info']['image']
       u.token      = auth['credentials']['token']
     end
   end

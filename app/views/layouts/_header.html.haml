@@ -1,0 +1,9 @@
+.navbar
+  .navbar-inner
+    = link_to "Lunch?", root_url, class: "brand"
+    - if user_signed_in?
+      %ul.nav.pull-right
+        %li
+          = link_to "javascript:void(0)" do
+            %img{ src: current_user.avatar_url, width: 20, height: 20 }
+            = current_user.name

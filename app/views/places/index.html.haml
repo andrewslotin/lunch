@@ -1,11 +1,11 @@
 .page-header
   %h1 Nice places around
 
-- @venues["groups"].each do |group|
-  %ul
-    - group["items"].each do |item|
-      - venue = item["venue"]
-      %li
-        = link_to venue["name"], venue["canonicalUrl"]
-        - if venue["rating"].present?
-          = "(#{venue["rating"]}/10)"
+%ul
+  - @venues.each do |venue|
+    %li
+      = link_to_venue(venue)
+      = distance_of_time_in_words(walking_time(venue.distance), 0, true)
+      = "(starving dev will be there in #{distance_of_time_in_words(running_time(venue.distance), 0, true)})"
+      .muted
+        = venue.address

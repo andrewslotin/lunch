@@ -1,6 +1,6 @@
 module ApplicationHelper
-  WALKING_SPEED = 5.5
-  RUNNING_SPEED = 12.0
+  WALKING_SPEED = 5500 / 3600
+  RUNNING_SPEED = 12000 / 3600
 
   def link_to_venue(venue)
     link_to venue.name, venue.url

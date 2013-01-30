@@ -1,45 +1,67 @@
 # -*- encoding : utf-8 -*-
 
 class Place
-  include Gmaps4rails::ActsAsGmappable
+  include Mongoid::Document
 
-  attr_reader :name, :distance, :url, :category, :lat, :lng
+  ADDRESS_FIELDS = ["address".freeze, "city".freeze, "state".freeze, "country".freeze, "postalCode".freeze].freeze
+
+  field :name, type: String
+  field :distance, type: Integer, default: 0
+  field :url, type: String
+  field :category, type: String, default: "Food"
+  field :location, type: Array, default: [0, 0]
+  field :address, type: Hash, default: Hash[ADDRESS_FIELDS.zip([""] * ADDRESS_FIELDS.size)]
+  field :rating, type: Float, default: 0.0
+  field :_id, type: String, default: -> { foursquare_id }
+
+  index({ location: "2d" }, { background: true })
+
+  attr_accessor :foursquare_id
+
+  validate :check_location_format
 
   def self.around(lat, lng, radius = 500)
-    foursquare_results = if Rails.env.development?
-                           JSON.load(File.read("data.json"))
-                         else
-                           foursquare.explore_venues(ll: [lat, lng].join(","), section: :food, radius: radius)
-                         end
+    foursquare_results = foursquare.explore_venues(ll: [lat, lng].join(","), section: :food, radius: radius)
     foursquare_results["groups"].map do |group|
-      group["items"].map do |venue|
-        self.new(venue["venue"])
+      group["items"].map do |item|
+        venue = item["venue"]
+
+        v = self.find_or_create_by(_id: venue["id"]) do |place|
+          place.foursquare_id = venue["id"]
+          place.name     = venue["name"]
+          place.url      = venue["canonicalUrl"]
+          place.location = [venue["location"]["lat"], venue["location"]["lng"]]
+          place.distance = venue["location"]["distance"]
+          place.rating   = venue["rating"] || 0.0
+
+          place.address = Hash[ADDRESS_FIELDS.zip(venue["location"].values_at(*ADDRESS_FIELDS))]
+        end
+
+        v.rating = venue["rating"] || 0.0
+        v.save if v.rating_changed?
+
+        v
       end
     end.flatten
+
+    self.scoped
   end
 
-  def initialize(foursquare_hash)
-    @name = foursquare_hash["name"]
-    @url = foursquare_hash["canonicalUrl"]
-    @lat = foursquare_hash["location"]["lat"]
-    @lng = foursquare_hash["location"]["lng"]
-    @distance = foursquare_hash["location"]["distance"]
-
-    address_fields = %w(address city state country postalCode)
-    @address = Hash[address_fields.map(&:to_sym).zip(foursquare_hash["location"].values_at(*address_fields))]
-  end
-
-  def address
-    [@address[:address], city_with_zip].select(&:presence).join(", ")
+  def full_address
+    [address["address"], city_with_zip].select(&:presence).join(", ")
   end
 
   def city_with_zip
-    [@address[:postalCode], @address[:city]].select(&:presence).join(" ") if @address[:city].present?
+    [address["postalCode"], address["city"]].select(&:presence).join(" ") if address["city"].present?
   end
 
   private
 
   def self.foursquare
     Foursquare2::Client.new(client_id: ENV['FOURSQUARE_CLIENT_ID'], client_secret: ENV['FOURSQUARE_CLIENT_SECRET'])
+  end
+
+  def check_location_format
+    location.size == 2
   end
 end

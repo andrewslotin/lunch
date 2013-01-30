@@ -1,16 +1,22 @@
 module ApplicationHelper
-  WALKING_SPEED = 5500 / 3600
-  RUNNING_SPEED = 12000 / 3600
+  WALKING_SPEED = 5500.0 / 3600
+  RUNNING_SPEED = 12000.0 / 3600
 
   def link_to_venue(venue)
     link_to venue.name, venue.url
   end
 
   def walking_time(distance)
-    (distance / WALKING_SPEED).ceil
+    time_for_distance(distance, WALKING_SPEED)
   end
 
   def running_time(distance)
-    (distance / RUNNING_SPEED).ceil
+    time_for_distance(distance, RUNNING_SPEED)
+  end
+
+  private
+
+  def time_for_distance(distance, speed)
+    (distance / speed).ceil
   end
 end

@@ -6,8 +6,6 @@ class SessionsController < ApplicationController
   end
 
   def create
-    render json: request.env['omniauth.auth']
-    return
     user = User.find_or_create_with_omniauth(request.env['omniauth.auth'])
 
     if user.persisted?

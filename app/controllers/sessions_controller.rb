@@ -15,8 +15,6 @@ class SessionsController < ApplicationController
     end
 
     redirect_to root_url
-  rescue
-    render json: request.env['omniauth.auth']
   end
 
   def destroy

@@ -4,8 +4,12 @@
 %ul
   - @venues.each do |venue|
     %li
+      = link_to "javascript:void(0)" do
+        %span.icon-food><
       = link_to_venue(venue)
-      = distance_of_time_in_words(walking_time(venue.distance), 0, true)
-      = "(starving dev will be there in #{distance_of_time_in_words(running_time(venue.distance), 0, true)})"
-      .muted
+      %p
         = venue.full_address
+        .muted
+          %em
+            = distance_of_time_in_words(walking_time(venue.distance), 0, true)
+            = "(starving wimdude will be there in #{distance_of_time_in_words(running_time(venue.distance), 0, true)})"

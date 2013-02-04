@@ -13,6 +13,7 @@ gem 'omniauth-github'
 gem 'foursquare2'
 gem 'octokit'
 gem 'bootstrap-sass'
+gem 'font-awesome-sass-rails'
 gem 'haml-rails'
 gem 'turbolinks'
 

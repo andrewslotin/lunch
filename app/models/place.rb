@@ -5,6 +5,9 @@ class Place
 
   ADDRESS_FIELDS = ["address".freeze, "city".freeze, "state".freeze, "country".freeze, "postalCode".freeze].freeze
 
+  WIMDU_LAT = "52.49402952426317"
+  WIMDU_LNG = "13.429402830064818"
+
   field :name, type: String
   field :distance, type: Integer, default: 0
   field :url, type: String

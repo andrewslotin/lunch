@@ -1,8 +1,6 @@
 class PlacesController < InheritedResources::Base
   def index
-    lat = "52.49402952426317"
-    lng = "13.429402830064818"
-    @venues = Place.around(lat, lng).desc(:rating)
+    @venues = Place.around(WIMDU_LAT, WIMDU_LNG).desc(:rating)
   end
 
   def vote

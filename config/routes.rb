@@ -7,5 +7,7 @@ Lunch::Application.routes.draw do
 
   resources :places, only: [:index] do
     post :vote, on: :member
+    post :like, on: :member
+    post :dislike, on: :member
   end
 end

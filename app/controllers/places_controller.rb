@@ -1,4 +1,4 @@
-class PlacesController < ApplicationController
+class PlacesController < InheritedResources::Base
   def index
     lat = "52.49402952426317"
     lng = "13.429402830064818"
@@ -13,9 +13,17 @@ class PlacesController < ApplicationController
     redirect_to places_path
   end
 
-  protected
+  def like
+    resource.votes.unrated.last.like!
 
-  def resource
-    @place ||= Place.find(params[:id])
+    flash[:notice] = "Thanks!"
+    redirect_to places_path
+  end
+
+  def dislike
+    resource.votes.unrated.last.dislike!
+
+    flash[:notice] = "Better luck next time"
+    redirect_to places_path
   end
 end

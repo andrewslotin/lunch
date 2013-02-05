@@ -1,0 +1,4 @@
+- flash.each do |type, obj|
+  %div{ class: type == :error ? "alert alert-error" : "alert alert-success" }
+    %button.close(type="button" data-dismiss="alert") x
+    = obj

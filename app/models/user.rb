@@ -11,6 +11,12 @@ class User
   field :avatar_url, type: String
   field :token,      type: String
 
+  has_many :votes, dependent: :destroy do
+    def current
+      where(created_on: Time.zone.now.to_date).first
+    end
+  end
+
   validate :wimduer?, on: :create
 
   def self.find_or_create_with_omniauth(auth)
@@ -25,6 +31,13 @@ class User
 
   def wimduer?
     github.organizations.any? { |org| org.login == "wimdu" }
+  end
+
+  def vote_for!(place)
+    vote = self.votes.current || self.votes.build
+    vote.place = place
+
+    vote.save
   end
 
   private

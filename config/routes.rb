@@ -5,5 +5,7 @@ Lunch::Application.routes.draw do
   match '/signin' => 'sessions#new'
   match '/signout' => 'sessions#destroy'
 
-  resources :places, only: [:index]
+  resources :places, only: [:index] do
+    post :vote, on: :member
+  end
 end

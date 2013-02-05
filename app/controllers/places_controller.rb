@@ -4,4 +4,18 @@ class PlacesController < ApplicationController
     lng = "13.429402830064818"
     @venues = Place.around(lat, lng)
   end
+
+  def vote
+    unless current_user.vote_for! resource
+      flash[:error] = "Something went wrong :("
+    end
+
+    redirect_to places_path
+  end
+
+  protected
+
+  def resource
+    @place ||= Place.find(params[:id])
+  end
 end

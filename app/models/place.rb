@@ -14,6 +14,8 @@ class Place
   field :rating, type: Float, default: 0.0
   field :_id, type: String, default: -> { foursquare_id }
 
+  has_many :votes, dependent: :destroy
+
   index({ location: "2d" }, { background: true })
 
   attr_accessor :foursquare_id

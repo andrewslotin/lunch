@@ -2,14 +2,17 @@
   %h1 Nice places around
 
 %ul
-  - @venues.each do |venue|
+  - @venues.each do |place|
     %li
-      = link_to "javascript:void(0)" do
+      = link_to vote_place_path(place), method: :post do
         %span.icon-food><
-      = link_to_venue(venue)
-      %p
-        = venue.full_address
+      = link_to_venue(place)
+      %div
+        = place.full_address
         .muted
           %em
-            = distance_of_time_in_words(walking_time(venue.distance), 0, true)
-            = "(starving wimdude will be there in #{distance_of_time_in_words(running_time(venue.distance), 0, true)})"
+            = distance_of_time_in_words(walking_time(place.distance), 0, true)
+            = "(starving wimdude will be there in #{distance_of_time_in_words(running_time(place.distance), 0, true)})"
+      %div
+        - place.votes.today.each do |vote|
+          %img{ src: vote.user.avatar_url, width: 20, height: 20, alt: vote.user.name }

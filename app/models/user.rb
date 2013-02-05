@@ -33,6 +33,10 @@ class User
     github.organizations.any? { |org| org.login == "wimdu" }
   end
 
+  def choice_for_today
+    votes.current.try(:place)
+  end
+
   def vote_for!(place)
     vote = self.votes.current || self.votes.build
     vote.place = place

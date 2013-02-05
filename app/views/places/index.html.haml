@@ -4,15 +4,20 @@
 %ul
   - @venues.each do |place|
     %li
-      = link_to vote_place_path(place), method: :post do
-        %span.icon-food><
+      - if place != current_user.choice_for_today
+        = link_to vote_place_path(place), method: :post do
+          %span.icon-food><
+      - else
+        %span.icon-food.muted
       = link_to_venue(place)
+      - if place.votes.old.where(user: current_user).exists?
+        Yeah
       %div
         = place.full_address
         .muted
           %em
             = distance_of_time_in_words(walking_time(place.distance), 0, true)
             = "(starving wimdude will be there in #{distance_of_time_in_words(running_time(place.distance), 0, true)})"
-      %div
+      %p
         - place.votes.today.each do |vote|
           %img{ src: vote.user.avatar_url, width: 20, height: 20, alt: vote.user.name }

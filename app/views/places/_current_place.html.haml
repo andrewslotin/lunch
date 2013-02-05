@@ -1,0 +1,8 @@
+- if user_signed_in? && current_user.choice_for_today
+  .alert.alert-info
+    Today you're going to
+    = link_to_venue(current_user.choice_for_today)
+    - if current_user.votes.current.place.votes.ne(user: current_user).exists?
+      = "with #{pluralize current_user.votes.current.place.votes.ne(user: current_user).size, "other"}"
+    - else
+      alone :(

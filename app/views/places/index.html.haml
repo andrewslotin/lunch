@@ -16,7 +16,7 @@
         Was it
         = link_to "good", like_place_path(place), method: :post
         or you would like to
-        = link_to "try something else", dislike_place_path(place), method: :post
+        = link_to "try something else", like_place_path(place), method: :delete
         next time?
       %div.muted
         = place.full_address

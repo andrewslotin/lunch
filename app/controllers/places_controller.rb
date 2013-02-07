@@ -8,20 +8,26 @@ class PlacesController < InheritedResources::Base
       flash[:error] = "Something went wrong :("
     end
 
-    redirect_to places_path
+    redirect_to :back
+  end
+
+  def unvote
+    current_user.votes.current.destroy
+
+    redirect_to :back
   end
 
   def like
     resource.votes.unrated.last.like!
 
     flash[:notice] = "Thanks!"
-    redirect_to places_path
+    redirect_to :back
   end
 
   def dislike
     resource.votes.unrated.last.dislike!
 
     flash[:notice] = "Better luck next time"
-    redirect_to places_path
+    redirect_to :back
   end
 end

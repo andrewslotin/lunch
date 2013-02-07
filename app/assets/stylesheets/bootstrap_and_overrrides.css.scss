@@ -17,6 +17,14 @@ body {
   margin: 0 auto -60px;
 }
 
+.alert {
+  .close {
+    &.btn {
+      opacity: 1;
+    }
+  }
+}
+
 /* Set the fixed height of the footer here */
 #push,
 #footer {

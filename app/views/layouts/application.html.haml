@@ -8,7 +8,14 @@
   %body
     = render "layouts/header"
 
-    .container
+    #content.container
       = render "places/current_place"
       = render "layouts/notifications"
       = yield
+      #push
+
+    %footer
+      #footer
+        .container
+          .muted.credit
+            2013. Built with love and hunger.

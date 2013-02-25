@@ -16,6 +16,8 @@ gem 'bootstrap-sass'
 gem 'font-awesome-sass-rails'
 gem 'haml-rails'
 gem 'turbolinks'
+gem 'puma'
+gem 'foreman'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -30,5 +32,4 @@ gem 'jquery-rails'
 group :development do
   gem 'awesome_print'
   gem 'hirb'
-  gem 'puma'
 end

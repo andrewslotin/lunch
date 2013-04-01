@@ -20,7 +20,7 @@ class User
     end
   end
 
-  validates_membership_in :wimdu, on: :create
+  # validates_membership_in :wimdu, on: :create
 
   def self.find_or_create_with_omniauth(auth)
     find_or_create_by(provider: auth['provider'], uid: auth['uid']) do |u|

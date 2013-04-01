@@ -1,6 +1,20 @@
-class PlacesController < InheritedResources::Base
+# -*- encoding : utf-8 -*-
+
+class PlacesController < ApplicationController
+  respond_to :json, :html
+  helper_method :resource, :collection
+
   def index
-    @venues = Place.around(Place::WIMDU_LAT, Place::WIMDU_LNG).desc(:rating)
+    respond_to do |format|
+      format.html
+      format.json { render json: collection }
+    end
+  end
+
+  def show
+    respond_to do |format|
+      format.json { render json: resource }
+    end
   end
 
   def vote
@@ -29,5 +43,21 @@ class PlacesController < InheritedResources::Base
 
     flash[:notice] = "Better luck next time"
     redirect_to :back
+  end
+
+  protected
+
+  def resource
+    @_place ||= Place.find(params[:id])
+  end
+
+  def collection
+    @_places ||= Place.around(location_parameters[:lat] || Place::WIMDU_LAT, location_parameters[:lng] || Place::WIMDU_LNG).sort_by(&:rating)
+  end
+
+  private
+
+  def location_parameters
+    params.permit(:lat, :lng)
   end
 end

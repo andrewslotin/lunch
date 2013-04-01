@@ -1,29 +1,47 @@
 .page-header
   %h1 Nice places around
 
-%ul
-  - @venues.each do |place|
-    %li
-      - if place != current_user.choice_for_today
-        = link_to vote_place_path(place), method: :post do
-          %span.icon-food><
-      - else
-        %span.icon-food.muted
-      = link_to_venue(place)
-      - if place.votes.unrated.where(user: current_user).exists?
-        &mdash; you have been there
-        = "#{days_ago_in_words(place.votes.unrated.where(user: current_user).last.created_on)}."
-        Was it
-        = link_to "good", like_place_path(place), method: :post
-        or you would like to
-        = link_to "try something else", like_place_path(place), method: :delete
-        next time?
-      %div.muted
-        = place.full_address
-        %p
-          %small
-            = distance_of_time_in_words(walking_time(place.distance), 0, true)
-            = "(starving wimdude will be there in #{distance_of_time_in_words(running_time(place.distance), 0, true)})"
-      %p
-        - place.votes.today.each do |vote|
-          %img{ src: vote.user.avatar_url, width: 20, height: 20, alt: vote.user.name }
+.container-fluid
+  .row-fluid( ng-controller="PlacesController" )
+    .span4
+      %ul
+        %li( ng-repeat="place in places" )
+          %a( href="#/{{place._id}}" ) {{place.name}}
+    .span8
+      %ng-view
+
+%script( id="place.html" type="text/ng-template" )
+  %h2 {{place.name}}
+
+  %em.muted
+    %address( place="place.address" )
+
+  %rating( value="place.rating" )
+
+  %map
+
+  / - collection.each do |place|
+  /   %li
+  /     - if place != current_user.choice_for_today
+  /       = link_to vote_place_path(place), method: :post do
+  /         %span.icon-food><
+  /     - else
+  /       %span.icon-food.muted
+  /     = link_to_venue(place)
+  /     - if place.votes.unrated.where(user: current_user).exists?
+  /       &mdash; you have been there
+  /       = "#{days_ago_in_words(place.votes.unrated.where(user: current_user).last.created_on)}."
+  /       Was it
+  /       = link_to "good", like_place_path(place), method: :post
+  /       or you would like to
+  /       = link_to "try something else", like_place_path(place), method: :delete
+  /       next time?
+  /     %div.muted
+  /       = place.full_address
+  /       %p
+  /         %small
+  /           = distance_of_time_in_words(walking_time(place.distance), 0, true)
+  /           = "(starving wimdude will be there in #{distance_of_time_in_words(running_time(place.distance), 0, true)})"
+  /     %p
+  /       - place.votes.today.each do |vote|
+  /         %img{ src: vote.user.avatar_url, width: 20, height: 20, alt: vote.user.name }

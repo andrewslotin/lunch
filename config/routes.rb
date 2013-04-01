@@ -1,3 +1,5 @@
+# -*- encoding : utf-8 -*-
+
 Lunch::Application.routes.draw do
   root to: "places#index"
 
@@ -5,7 +7,7 @@ Lunch::Application.routes.draw do
   match '/signin' => 'sessions#new'
   match '/signout' => 'sessions#destroy'
 
-  resources :places, only: [:index] do
+  resources :places, only: [:index, :show] do
     post :vote, on: :member
     delete :vote, as: :unvote, on: :member, action: :unvote
     post :like, on: :member

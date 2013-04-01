@@ -6,7 +6,6 @@ ruby '2.0.0'
 
 gem 'rails', '3.2.13'
 
-gem 'inherited_resources'
 gem 'mongoid'
 gem 'omniauth-github'
 gem 'foursquare2'
@@ -15,6 +14,7 @@ gem 'bootstrap-sass'
 gem 'font-awesome-sass-rails'
 gem 'haml-rails'
 gem 'turbolinks'
+gem 'strong_parameters'
 gem 'puma'
 gem 'foreman'
 

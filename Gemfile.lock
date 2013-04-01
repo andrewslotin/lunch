@@ -64,15 +64,11 @@ GEM
       activesupport (>= 3.1, < 4.1)
       haml (>= 3.1, < 4.1)
       railties (>= 3.1, < 4.1)
-    has_scope (0.5.1)
     hashie (1.2.0)
     hike (1.2.1)
     hirb (0.7.1)
     httpauth (0.2.0)
     i18n (0.6.1)
-    inherited_resources (1.4.0)
-      has_scope (~> 0.5.0)
-      responders (~> 0.9)
     journey (1.0.4)
     jquery-rails (2.2.1)
       railties (>= 3.0, < 5.0)
@@ -145,8 +141,6 @@ GEM
     rake (10.0.4)
     rdoc (3.12.2)
       json (~> 1.4)
-    responders (0.9.3)
-      railties (~> 3.1)
     sass (3.2.7)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
@@ -157,6 +151,10 @@ GEM
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
+    strong_parameters (0.2.0)
+      actionpack (~> 3.0)
+      activemodel (~> 3.0)
+      railties (~> 3.0)
     thor (0.18.1)
     tilt (1.3.6)
     treetop (1.4.12)
@@ -181,7 +179,6 @@ DEPENDENCIES
   foursquare2
   haml-rails
   hirb
-  inherited_resources
   jquery-rails
   mongoid
   octokit
@@ -189,5 +186,6 @@ DEPENDENCIES
   puma
   rails (= 3.2.13)
   sass-rails (~> 3.2.3)
+  strong_parameters
   turbolinks
   uglifier (>= 1.0.3)

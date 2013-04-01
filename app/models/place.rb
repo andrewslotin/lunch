@@ -3,6 +3,8 @@
 class Place
   include Mongoid::Document
 
+  include ActiveModel::ForbiddenAttributesProtection
+
   ADDRESS_FIELDS = ["address".freeze, "city".freeze, "state".freeze, "country".freeze, "postalCode".freeze].freeze
 
   WIMDU_LAT = "52.49402952426317"
@@ -48,8 +50,6 @@ class Place
         v
       end
     end.flatten
-
-    self.scoped
   end
 
   def full_address

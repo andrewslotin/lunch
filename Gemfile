@@ -1,11 +1,10 @@
+# -*- encoding : utf-8 -*-
+
 source 'https://rubygems.org'
 
-ruby '1.9.3'
+ruby '2.0.0'
 
-gem 'rails', '3.2.11'
-
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
+gem 'rails', '3.2.13'
 
 gem 'inherited_resources'
 gem 'mongoid'

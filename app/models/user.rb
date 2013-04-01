@@ -1,7 +1,10 @@
 # -*- encoding : utf-8 -*-
 
+require Rails.root.join(*%w(lib active_model))
+
 class User
   include Mongoid::Document
+  include Mongoid::Validations
 
   field :uid,        type: String
   field :provider,   type: String
@@ -17,7 +20,7 @@ class User
     end
   end
 
-  validate :wimduer?, on: :create
+  validates_membership_in :wimdu, on: :create
 
   def self.find_or_create_with_omniauth(auth)
     find_or_create_by(provider: auth['provider'], uid: auth['uid']) do |u|
@@ -29,10 +32,6 @@ class User
     end
   end
 
-  def wimduer?
-    github.organizations.any? { |org| org.login == "wimdu" }
-  end
-
   def choice_for_today
     votes.current.try(:place)
   end
@@ -42,11 +41,5 @@ class User
     vote.place = place
 
     vote.save
-  end
-
-  private
-
-  def github
-    Octokit::Client.new(login: login, oauth_token: token)
   end
 end

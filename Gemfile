@@ -2,9 +2,9 @@
 
 source 'https://rubygems.org'
 
-ruby '2.0.0'
+ruby '2.1.0'
 
-gem 'rails', '3.2.13'
+gem 'rails', '4.0.9'
 
 gem 'mongoid'
 gem 'omniauth-github'
@@ -21,9 +21,9 @@ gem 'foreman'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
-  gem 'uglifier', '>= 1.0.3'
+  gem 'sass-rails',   '~> 4.0.0'
+  gem 'coffee-rails', '~> 4.0.0'
+  gem 'uglifier'
 end
 
 gem 'jquery-rails'
